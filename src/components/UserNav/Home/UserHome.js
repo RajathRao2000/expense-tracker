@@ -1,8 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
+import "./UserHome.css"
 
 function UserHome() {
   return (
-    <div>Welcome to Expense tracker!!!</div>
+    <section className='user-home'></section>
   )
 }
 

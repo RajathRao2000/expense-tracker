@@ -1,15 +1,21 @@
-import React, { useState } from 'react'
-import Global from './Global'
+import React, { useState } from "react";
+import Global from "./Global";
 
-function GlobalProvider() {
-    
-    console.log(localStorage.getItem("token"))
-    const [global,setGlobal]=useState({
-        idtoken:JSON.parse(localStorage.getItem("token"))
-    })
-  return (
-    <Global.Provider>{props.children}</Global.Provider>
-  )
+function GlobalProvider(props) {
+  console.log(localStorage.getItem("token"));
+  const [global, setGlobal] = useState({
+    idtoken: JSON.parse(localStorage.getItem("token")).token,
+    setidtoke: setIdToken,
+  });
+
+  function setIdToken(token) {
+    setGlobal((prev) => {
+      const tempGlobal = { ...prev };
+      tempGlobal.idtoken = token;
+      return tempGlobal;
+    });
+  }
+  return <Global.Provider value={global}>{props.children}</Global.Provider>;
 }
 
-export default GlobalProvider
+export default GlobalProvider;

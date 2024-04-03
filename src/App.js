@@ -6,6 +6,7 @@ import SignUp from "./components/AuthForm/SignUp/SignUp";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter,Switch,Route } from "react-router-dom/cjs/react-router-dom";
 import UserHome from "./components/UserNav/Home/UserHome";
+import UserNav from "./components/UserNav/UserNav";
 
 
 function App() {
@@ -18,8 +19,8 @@ function App() {
       <Route path="/login">
         <AuthForm />
       </Route>
-      <Route path="/userhome">
-        <UserHome />
+      <Route path="/user-nav">
+        <UserNav />
       </Route>
       </Switch>
     </BrowserRouter>

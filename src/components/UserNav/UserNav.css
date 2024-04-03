@@ -1,0 +1,19 @@
+.profile-msg>a{
+    text-decoration: none;
+}
+
+.user-header{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+    border: 1px solid;
+}
+
+.profile-msg{
+    background-color: #e7dbdb;
+    padding: 4px 5px;
+    border-radius: 10px;
+    font-style: italic;
+    font-size: small;
+}

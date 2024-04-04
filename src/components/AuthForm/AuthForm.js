@@ -7,17 +7,24 @@ import { Link } from "react-router-dom";
 import "./AuthForm.css";
 
 function AuthForm() {
-    console.log(JSON.parse(localStorage.getItem("token")))
+  console.log(JSON.parse(localStorage.getItem("token")));
 
-  const [Form, setForm] = useState();
   const history = useHistory();
   return (
     <section className="auth-form ">
-      {history.location.pathname=="/login" && <LoginForm />}
-      {history.location.pathname=="/signup" && <SignUp />}
+      {history.location.pathname == "/login" && <LoginForm />}
+      {history.location.pathname == "/signup" && <SignUp />}
       <div className="form-msg ">
-      {history.location.pathname=="/login" && <p>Don't have an account? <Link to="/signup">Sign up</Link></p>}
-        {history.location.pathname=="/signup" && <p>Have an account? <Link to="/login">Login</Link></p>}
+        {history.location.pathname == "/login" && (
+          <p>
+            Don't have an account? <Link to="/signup">Sign up</Link>
+          </p>
+        )}
+        {history.location.pathname == "/signup" && (
+          <p>
+            Have an account? <Link to="/login">Login</Link>
+          </p>
+        )}
       </div>
     </section>
   );

@@ -1,13 +1,15 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import axios from "axios";
 
 import keys from "../../../keys";
 import { useHistory } from "react-router";
+import Global from "../../store/Global";
 
 function LoginForm() {
   const history=useHistory()
   const enteredEmail = useRef();
   const enteredPassword = useRef();
+  const {setidtoken}=useContext(Global)
 
   const loginHandler = async (e) => {
     const email = enteredEmail.current.value;
@@ -29,8 +31,9 @@ function LoginForm() {
         email: res.data.email,
         date: new Date()
       }))
+      setidtoken(res.data.idToken)
 
-      history.replace("/userhome")
+      history.replace("/user-nav/profile")
 
     } catch (error) {
       console.log("signin error", error.response.data);

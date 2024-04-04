@@ -4,9 +4,19 @@ import Global from "./Global";
 function GlobalProvider(props) {
   console.log(localStorage.getItem("token"));
   const [global, setGlobal] = useState({
-    idtoken: JSON.parse(localStorage.getItem("token")).token,
+    idtoken: localStorage.getItem("token")?JSON.parse(localStorage.getItem("token")).token:"",
     setidtoken: setidtokenn,
+    clearToken: clearToken
   });
+
+  function clearToken(){
+    setGlobal((prev)=>{
+      let tempGlobal={...prev}
+      tempGlobal.idtoken=""
+      localStorage.removeItem("token")
+      return tempGlobal
+    })
+  }
 
   function setidtokenn(token) {
     console.log("setidtoken",token)

@@ -2,7 +2,8 @@ import { createContext } from "react";
 
 const Global = createContext({
   idtoken: "",
-  setidtokenn: ()=>{}
+  setidtokenn: ()=>{},
+  clearToken: ()=>{}
 });
 
 export default Global;

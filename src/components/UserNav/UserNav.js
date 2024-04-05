@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import UserProfile from "./UserProfile/UserProfile";
 import UpdateProfile from "./UpdateProfile/UpdateProfile";
 import Global from "../store/Global";
+import ExpenseTracker from "./ExpenseTracker/ExpenseTracker";
 
 function UserNav() {
   const history=useHistory()
@@ -25,6 +26,7 @@ function UserNav() {
           ? "Winners never quit, Quitters never win"
           : ""}
           <div className="logout-btn"><button onClick={logoutHandler}>Logout</button></div>
+          <div className="logout-btn"><button onClick={()=>{history.replace("./expense-tracker")}}>Expense Tracker</button></div>
         <div className="profile-msg">
           {pathname == `${path}/profile` ? (
             "Your profile is incomplete."
@@ -44,6 +46,9 @@ function UserNav() {
       </Route>
       <Route path={`${path}/update-profile`}>
         <UpdateProfile />
+      </Route>
+      <Route path={`${path}/expense-tracker`}>
+        <ExpenseTracker />
       </Route>
     </>
   );

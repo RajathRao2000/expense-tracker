@@ -1,0 +1,29 @@
+.expense-tracker{
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.expense-tracker>form{
+    max-width: 850px;
+}
+.expense-tracker>form>h1{
+    margin-top: 20px;
+}
+.expense-tracker>form>select{
+    margin: 10px 0;
+}
+
+.expenses-table{
+    border: solid 1px gainsboro;
+    width: 600px;
+    padding: 20px;
+}
+
+.expenses-table>h2{
+    text-align: center;
+    margin-bottom: 30px ;
+}

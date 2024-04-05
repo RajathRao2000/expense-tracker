@@ -29,7 +29,6 @@
 
 .form-msg>p>a{
     text-decoration: none;
-    /* background-color: black; */
     color: black
 }
 
@@ -47,11 +46,10 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
-    /* gap: 10px; */
 
 }
 
-.form>input{
+.form>input,select{
     padding: 10px;
     border: solid 1px gainsboro;
     margin: 10px 0;

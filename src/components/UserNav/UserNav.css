@@ -1,5 +1,6 @@
-.profile-msg>a{
+.profile-msg>p>a{
     text-decoration: none;
+    display: block;
 }
 
 .user-header{
@@ -17,3 +18,4 @@
     font-style: italic;
     font-size: small;
 }
+

@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
+import {useSelector} from "react-redux"
+
 
 import keys from "../../../keys";
 import Global from "../../store/Global";
@@ -10,6 +12,7 @@ function UpdateProfile() {
   const enteredName = useRef();
   const enteredUrl = useRef();
   const { idtoken } = useContext(Global);
+  const auth=useSelector(state=>state.auth)
   const [userInfo,setUserInfo]=useState({
     email:"",
     url:""
@@ -21,10 +24,10 @@ function UpdateProfile() {
       const res = await axios.post(
         `${keys.getProfileInfo}${keys.googleApiKey}`,
         {
-          idToken: idtoken,
+          idToken: auth.idtoken,
         }
       );
-      console.log("success get", res.data.users[0]);
+      console.log("success post", res.data.users[0]);
         setUserInfo(prev=>({
             email: res.data.users[0].email,
             url: res.data.users[0].photoUrl,
@@ -50,7 +53,7 @@ function UpdateProfile() {
       const res = await axios.post(
         `${keys.updateProfile}${keys.googleApiKey}`,
         {
-          idToken: idtoken,
+          idToken: auth.idtoken,
           displayName: fullName,
           photoUrl: URL,
           returnSecureToken: true,

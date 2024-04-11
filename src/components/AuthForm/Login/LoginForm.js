@@ -1,5 +1,8 @@
+import {authActions} from '../../store/auth'
 import { useContext, useRef, useState } from "react";
 import axios from "axios";
+import {useDispatch,useSelector} from "react-redux"
+// console.log(authActions)
 
 import keys from "../../../keys";
 import { useHistory } from "react-router";
@@ -10,11 +13,15 @@ import { Link } from "react-router-dom";
 function LoginForm() {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch=useDispatch()
+  const auth=useSelector(state=>state.auth)
+  // const expenses=useSelector(state=>state.expense)
+  // console.log(expenses)
 
   const history = useHistory();
   const enteredEmail = useRef();
   const enteredPassword = useRef();
-  const { setidtoken,idtoken } = useContext(Global);
+  // const { setidtoken,idtoken } = useContext(Global);
 
   const forgotPsHandler = async (e) => {
     const email = enteredEmail.current.value;
@@ -55,7 +62,8 @@ function LoginForm() {
           date: new Date(),
         })
       );
-      setidtoken(res.data.idToken);
+      // setidtoken(res.data.idToken);
+      dispatch(authActions.login(res.data.idToken))
 
       history.replace("/user-nav/profile");
     } catch (error) {
@@ -63,6 +71,8 @@ function LoginForm() {
       alert(error.response.data.error.message);
     }
   };
+
+  if(auth.idtoken) history.replace("/user-nav/profile")
   return (
     <>
       {isLogin ? (

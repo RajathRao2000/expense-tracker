@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
 }
 
 code {
@@ -17,4 +18,13 @@ code {
   --oxford-blue: #0b2545ff;
   --powder-blue: #8da9c4ff;
   --mint-cream: #eef4edff;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.dark{
+  background-color: black;
+  color: white;
 }

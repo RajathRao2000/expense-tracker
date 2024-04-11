@@ -1,17 +1,23 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Table from "react-bootstrap/Table";
+import {useDispatch,useSelector} from "react-redux"
+import { CSVLink, CSVDownload } from "react-csv";
 
 import "./ExpenseTracker.css";
 import keys from "../../../keys";
 import { useHistory } from "react-router";
 import { Button, ButtonGroup } from "react-bootstrap";
+import { expenseActions } from "../../store/exp";
 
 function ExpenseTracker() {
   const history = useHistory();
+  const dispatch=useDispatch()
 
-  const [expensesList, setExpnesesList] = useState([]);
+  // const [expensesList, setExpnesesList] = useState([]);
+  const expensesList=useSelector(state=>state.expense.list)
   const [isEditMode, setIsEditMode] = useState("");
+  const dark=useSelector(state=>state.theme.dark)
 
   const [expense, setExpense] = useState();
   const [desc, setDesc] = useState();
@@ -78,7 +84,8 @@ function ExpenseTracker() {
     } catch (error) {
       console.log("error in adding", error);
     }
-    setExpnesesList((prev) => [...prev, temp]);
+    dispatch(expenseActions.addExpense(temp))
+    // setExpnesesList((prev) => [...prev, temp]);
   };
 
   const getExpense = async () => {
@@ -87,11 +94,10 @@ function ExpenseTracker() {
         `${keys.firebaseUrl}/expenses-list/${email}.json`
       );
       console.log("successfully received expenses list", res.data);
-      setExpnesesList(
-        Object.keys(res.data).map((expenseid) => {
-          return { ...res.data[expenseid], expenseid };
-        })
-      );
+
+      dispatch(expenseActions.setExpenses(Object.keys(res.data).map((expenseid) => {
+        return { ...res.data[expenseid], expenseid };
+      })))
     } catch (error) {
       console.log("error in fetching expense list or expense list is empty");
     }
@@ -130,20 +136,15 @@ function ExpenseTracker() {
         `${keys.firebaseUrl}/expenses-list/${email}/${expenseid}.json`
       );
       console.log("successfully deleted",res, res.data);
-      setExpnesesList((prev) => {
-        return [...prev].filter((expense) => {
-          console.log(expense,expense.expenseid,expenseid)
-          return expense.expenseid !== expenseid;
-        });
-      });
+      dispatch(expenseActions.deleteExpense(expenseid))
     } catch (error) {
       console.log("error in deletion", error);
     }
   };
 
   return (
-    <section className="expense-tracker">
-      <form className="form expense-form" onSubmit={AddExpense}>
+    <section className={`expense-tracker ${dark?"bg-gray-400":""}`}>
+      <form className={`form expense-form ${dark?"bg-black text-white":""}`} onSubmit={AddExpense}>
         <h1>Enter your Expense</h1>
         <input
           name="money-spent"
@@ -151,17 +152,20 @@ function ExpenseTracker() {
           type="number"
           value={expense}
           onChange={(e) => updateInput(e, "expense")}
+          className={`${dark?"text-black":""}`}
         />
         <input
           name="description"
           placeholder="Description"
           value={desc}
           onChange={(e) => updateInput(e, "desc")}
+          className={`${dark?"text-black":""}`}
         />
         <select
           name="categories"
           value={category}
           onChange={(e) => updateInput(e, "category")}
+          className={`${dark?"text-black":""}`}
         >
           <option value="Choose Category">Choose Category</option>
           <option value="Food">Food</option>
@@ -173,9 +177,14 @@ function ExpenseTracker() {
           {isEditMode ? "Edit Expense" : "Add Expense"}
         </button>
       </form>
-      <section className="expenses-table">
+      <section className={`expenses-table flex flex-col ${dark?"bg-black text-white":""}`}>
         <h2>Expenses List</h2>
-        {expensesList.length !== 0 ? (
+        {(!!expensesList && expensesList.reduce((total,current)=>{
+          return total+Number(current.expense)
+        },0)>10000) && <button className="rounded p-3 m-3 bg-red-400 w-96 align-self-center text-white">Activate Premium</button>}
+
+
+        {!!expensesList ? (
           <Table striped bordered>
             <thead>
               <tr>
@@ -188,7 +197,8 @@ function ExpenseTracker() {
             </thead>
             <tbody>
               {expensesList.map((expense, i) => {
-                console.log(expense);
+                // setExpenseTotal((p)=>p+expense.expense)
+                // console.log(expense);
                 return (
                   <tr key={expense.expenseid}>
                     <td>{i + 1}</td>
@@ -241,6 +251,13 @@ function ExpenseTracker() {
         ) : (
           <p>your added expenses will be shown here...</p>
         )}
+        <CSVLink filename={new Date()} className={`p-3 w-80 align-self-center text-center no-underline bg-green-500 text-white rounded`} data={expensesList.map((expense)=>{
+          return {
+            expense: expense.expense,
+            description: expense.description,
+            category: expense.category
+          }
+        })}>Download Now</CSVLink>
       </section>
     </section>
   );

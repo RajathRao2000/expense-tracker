@@ -8,7 +8,6 @@ const Products = (props) => {
     <section className={classes.products}>
       <h2>Buy your favorite products</h2>
       <ul>
-        {console.log(cartList.list.length, !!cartList.list)}
         {!!cartList.list.length ? (
           cartList.list.map((item) => {
             return (

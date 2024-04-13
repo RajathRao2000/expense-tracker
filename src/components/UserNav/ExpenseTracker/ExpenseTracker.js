@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Table from "react-bootstrap/Table";
 import {useDispatch,useSelector} from "react-redux"
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVLink } from "react-csv";
 
 import "./ExpenseTracker.css";
 import keys from "../../../keys";
@@ -196,7 +196,7 @@ function ExpenseTracker() {
               </tr>
             </thead>
             <tbody>
-              {expensesList.map((expense, i) => {
+              {expensesList&&expensesList.map((expense, i) => {
                 // setExpenseTotal((p)=>p+expense.expense)
                 // console.log(expense);
                 return (
@@ -251,13 +251,13 @@ function ExpenseTracker() {
         ) : (
           <p>your added expenses will be shown here...</p>
         )}
-        <CSVLink filename={new Date()} className={`p-3 w-80 align-self-center text-center no-underline bg-green-500 text-white rounded`} data={expensesList.map((expense)=>{
+        <CSVLink filename={new Date()} className={`p-3 w-80 align-self-center text-center no-underline bg-green-500 text-white rounded`} data={expensesList?expensesList.map((expense)=>{
           return {
             expense: expense.expense,
             description: expense.description,
             category: expense.category
           }
-        })}>Download Now</CSVLink>
+        }):[]}>Download Now</CSVLink>
       </section>
     </section>
   );

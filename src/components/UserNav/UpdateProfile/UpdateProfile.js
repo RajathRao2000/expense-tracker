@@ -63,6 +63,8 @@ function UpdateProfile() {
         }
       );
       console.log("profile update success", res.data);
+      alert("Update Successful!!")
+
     } catch (error) {
       console.log("error in updateion", error.response.data);
     }

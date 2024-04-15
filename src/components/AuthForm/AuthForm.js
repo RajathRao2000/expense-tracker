@@ -11,7 +11,7 @@ function AuthForm() {
 
   const history = useHistory();
   return (
-    <section className="auth-form p-5  ">
+    <section className="auth-form p-5 ">
       {history.location.pathname === "/login" && <LoginForm />}
       {history.location.pathname === "/signup" && <SignUp />}
       <div className="form-msg ">

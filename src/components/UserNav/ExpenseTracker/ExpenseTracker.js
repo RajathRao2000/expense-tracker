@@ -7,11 +7,13 @@ import "./ExpenseTracker.css";
 import keys from "../../../keys";
 import { useHistory } from "react-router";
 import { expenseActions } from "../../store/exp";
+import { themeActions } from "../../store/theme";
 
 function ExpenseTracker() {
   const history = useHistory();
   const dispatch = useDispatch();
   const dark = useSelector((state) => state.theme.dark);
+  const premium = useSelector((state) => state.theme.premium);
 
   const expensesList = useSelector((state) => state.expense.list);
   const [isEditMode, setIsEditMode] = useState("");
@@ -143,13 +145,17 @@ function ExpenseTracker() {
     }
   };
 
+  const activatePremium = () => {
+    dispatch(themeActions.toggle());
+  };
+
   return (
     <section
       className={`expense-tracker  w-full p-2 flex flex-col justify-center items-center gap-3 h-full `}
     >
       <form
         className={`form rounded-lg expense-form ${
-          dark ? "bg-black text-white" : ""
+          dark ? "bg-black text-white" : "bg-blue-50"
         } w-96`}
         onSubmit={AddExpense}
       >
@@ -187,15 +193,19 @@ function ExpenseTracker() {
       </form>
       <section
         className={`expenses-table flex flex-col ${
-          dark ? "bg-black text-white" : ""
+          dark ? "bg-black text-white" : "bg-blue-50"
         } flex flex-col justify-center items-center gap-2 rounded-lg`}
       >
         <h2 className="text-4xl">Expenses List</h2>
-        {!!expensesList &&
+        {!premium &&
+          !!expensesList &&
           expensesList.reduce((total, current) => {
             return total + Number(current.expense);
           }, 0) > 10000 && (
-            <button className="rounded p-3 m-3 bg-red-400 w-96 align-self-center text-white">
+            <button
+              onClick={activatePremium}
+              className="rounded p-3 m-3 bg-red-400 w-96 align-self-center text-white"
+            >
               Activate Premium
             </button>
           )}
@@ -270,7 +280,7 @@ function ExpenseTracker() {
         ) : (
           <p>Your added expenses will be shown here...</p>
         )}
-        {!!expensesList.length && (
+        {!!expensesList.length && premium && (
           <CSVLink
             filename={new Date().toDateString()}
             className={`p-3 w-80 align-self-center text-center no-underline bg-green-500 text-white rounded`}

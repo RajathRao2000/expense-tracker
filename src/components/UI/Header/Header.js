@@ -15,6 +15,7 @@ function Header() {
   const history = useHistory();
   const { pathname } = useLocation();
   const dark = useSelector((state) => state.theme.dark);
+  const premium=useSelector(state=>state.theme.premium)
   const { isAuthenticated } = useSelector((state) => state.auth);
   const logoutHandler = () => {
     dispatch(authActions.logout());
@@ -24,7 +25,7 @@ function Header() {
     <>
       <header
         className={`${
-          dark ? "dark" : ""
+          dark ? "dark" : "bg-blue-50"
         } border-solid border-2 border-b-black p-2 flex justify-between h-16 items-center`}
       >
         <p className="text-xl">
@@ -37,20 +38,15 @@ function Header() {
         {isAuthenticated && (
           <>
             <nav
-              className={`p-2 flex gap-3 justify-self-center [&>a]:${dark?`bg-white`:``}`}
+              className={`p-2 flex gap-3 justify-self-center [&>a]:${dark?`bg-white`:`bg-green-500`}`}
             >
-              {/* <nav
-                className={`p-2 flex gap-3 justify-self-center [&>*]:${
-                  dark ? `border-white` : `bg-black`
-                } `}
-              >*/}
-              <NavLink activeClassName={`border-b-4`} to={`/expense-tracker`}>
+              <NavLink activeClassName={`border-b-4 ${dark?`border-white`:`border-black`}`} to={`/expense-tracker`}>
                 Expense Tracker
               </NavLink>
-              <NavLink activeClassName="border-b-4 " to={`/verify-email`}>
+              <NavLink activeClassName={`border-b-4 ${dark?`border-white`:`border-black`}`} to={`/verify-email`}>
                 Verify Email
               </NavLink>
-              <NavLink activeClassName="border-b-4 " to={`/profile`}>
+              <NavLink activeClassName={`border-b-4 ${dark?`border-white`:`border-black`}`} to={`/profile`}>
                 Profile
               </NavLink>
             </nav>
@@ -59,7 +55,7 @@ function Header() {
         <div
           className={`nav-btn-group flex  items-center justify-center [&>button]:border-2 [&>button]:p-2 gap-1`}
         >
-          {pathname !== "/login" && (
+          {(pathname !== "/login" && pathname!=="/signup") && (
             <div
               className={`profile-msg p-2  italic text-xs w-72 rounded ${
                 dark ? "bg-white text-black" : "bg-black text-white"
@@ -79,28 +75,23 @@ function Header() {
                 <p>
                   Your Profile is <strong>64%</strong> completed. A complete
                   Profile has higher chances of landing a job.
-                  {/* <Link
-                    to={`/profile`}
-                    className={`block font-semibold text-purple-800 mt-1`}
-                  >
-                    Go to Profile
-                  </Link> */}
+
                 </p>
               )}
             </div>
           )}
 
-          <button onClick={() => dispatch(themeActions.toggle())}>
+          {premium && <button onClick={() => dispatch(themeActions.toggle())}>
             {dark ? (
               <span title="Light">
                 <MdLightMode size={25} style={{ color: "yellow" }} />
               </span>
             ) : (
-              <span title="Dark">
+              <span className="bg-white" title="Dark">
                 <MdDarkMode size={25} />
               </span>
             )}
-          </button>
+          </button>}
           {isAuthenticated && (
             <button title="Logout" onClick={logoutHandler}>
               <FaSignOutAlt size={25} />

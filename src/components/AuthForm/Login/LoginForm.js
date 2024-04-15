@@ -19,7 +19,7 @@ function LoginForm() {
 
   const forgotPsHandler = async (e) => {
     // const email = enteredEmail.current.value;
-    const email = e.target.email.value;
+    const email = e.target["ps-email"].value;
     setIsLoading(true);
     e.preventDefault();
     try {
@@ -31,6 +31,7 @@ function LoginForm() {
         }
       );
       console.log("successfully sent password reset email", res.data);
+      alert(`Password reset E-mail sent to ${email}!`)
     } catch (error) {
       console.log("error in forgot password", error);
     }
@@ -77,7 +78,7 @@ function LoginForm() {
     <>
       {isLogin ? (
         <form
-          className={`form login-form ${dark ? "bg-black text-white" : ""}`}
+          className={`form login-form ${dark ? "bg-black text-white" : " bg-blue-50"}`}
           onSubmit={loginHandler}
         >
           <h1 className="text-4xl">Login</h1>
@@ -104,15 +105,17 @@ function LoginForm() {
         </form>
       ) : (
         <form
-          className={`form forgot-ps ${dark ? "bg-black text-white" : ""}`}
+          className={`form forgot-ps ${dark ? "bg-black text-white" : "bg-blue-50"}`}
           onSubmit={forgotPsHandler}
         >
           <h2 className="text-4xl" style={{ padding: "10px 0" }}>Account Recovery</h2>
           <h6>Enter the email with which you have registered.</h6>
-          <input className="text-black" placeholder="Email" name="email" />
-          <button className="form-btn forgotps-btn" type="submit">
-            Send Link
-          </button>
+          <input className="text-black" placeholder="Email" name="ps-email" required/>
+          {isLoading?<div className="form-btn forgotps-btn text-center" >
+            {isLoading?"Submitting Request...":"Send Link"}
+          </div>:<button className="form-btn forgotps-btn" type="submit">
+            {isLoading?"Submitting Request...":"Send Link"}
+          </button>}
           <div className="forgot-password">
             Already a user?
             <button

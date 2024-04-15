@@ -3,9 +3,10 @@ import ExpenseTracker from "./ExpenseTracker";
 import { Provider } from "react-redux";
 import { store } from "../../store/store";
 import { MemoryRouter } from "react-router-dom/cjs/react-router-dom";
-import axios from "axios";
 
 describe("testing expense tracker component", () => {
+  const jsdomAlert = window.alert;  // remember the jsdom alert
+  window.alert = () => {};  // provide an empty implementation for window.alert
   test("Login Title", () => {
     render(<MemoryRouter><Provider store={store}><ExpenseTracker /></Provider></MemoryRouter>);
     const loginTitle = screen.getByText("Enter your Expense");
@@ -16,11 +17,11 @@ describe("testing expense tracker component", () => {
     render(<MemoryRouter><Provider store={store}><ExpenseTracker /></Provider></MemoryRouter>);
     const tableTitle = screen.getByText("Expenses List");
     expect(tableTitle).toBeInTheDocument();
-  });
+  }); 
 
   test("Download Button", () => {
     render(<MemoryRouter><Provider store={store}><ExpenseTracker /></Provider></MemoryRouter>);
-    const downloadBtn = screen.getByText("Download Now");
+    const downloadBtn = screen.getByText("DownloadNow");
     expect(downloadBtn).toBeInTheDocument();
   });
 
@@ -65,5 +66,7 @@ describe("testing expense tracker component", () => {
     const Edit_delete = screen.getByText("Edit / Delete");
     expect(Edit_delete).toBeInTheDocument();
   });
+
+  window.alert = jsdomAlert;
 
 });

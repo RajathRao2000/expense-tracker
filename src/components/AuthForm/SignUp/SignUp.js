@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import axios from "axios";
 import { useHistory, useLocation } from "react-router";
+import { useSelector } from "react-redux";
 
 import keys from "../../../keys";
 import "./SignUp.css";
@@ -12,7 +13,8 @@ function SignUp() {
   const enteredConfirmPassword = useRef();
   const history = useHistory();
   const location = useLocation();
-  console.log(history, location);
+  const dark=useSelector(state=>state.theme.dark)
+
   const SignUpHandler = async (e) => {
     e.preventDefault();
     if (
@@ -26,18 +28,17 @@ function SignUp() {
       email: enteredEmail.current.value,
       password: enteredPassword.current.value,
     };
-    console.log({
-      ...obj,
-      returnSecureToken: true,
-    });
+
     try {
       const res = await axios.post(`${keys.SignUpUrl}${keys.googleApiKey}`, {
         ...obj,
         returnSecureToken: true,
       });
       console.log("user has successfully signed up", res.data);
+      history.replace("/login")
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data.error);
+      alert(error.response.data.error.message)
     }
   };
   const checkPassword = () => {
@@ -49,11 +50,11 @@ function SignUp() {
 
   return (
     <>
-    <form onSubmit={SignUpHandler} className="form sign-up-form ">
-    <h1>Sign up</h1>
-    <input placeholder="Email" name="email" ref={enteredEmail}/>
-    <input placeholder="Password" name="password" type="password" ref={enteredPassword}/>
-    <input placeholder="Confirm Password" name="cPassword" type="password" onChange={checkPassword} ref={enteredConfirmPassword}/>
+    <form onSubmit={SignUpHandler} className={"form sign-up-form "+`${dark ? "bg-black text-white" : "bg-blue-50"}`}>
+    <h1 className="text-4xl">Sign up</h1>
+    <input className={`text-black`} placeholder="Email" name="email" ref={enteredEmail}/>
+    <input className={`text-black`} placeholder="Password" name="password" type="password" ref={enteredPassword}/>
+    <input className={`text-black`} placeholder="Confirm Password" name="cPassword" type="password" onChange={checkPassword} ref={enteredConfirmPassword}/>
     <button className="form-btn signup-btn" type="submit">Sign up</button>
     </form>
     </>

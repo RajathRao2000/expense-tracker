@@ -3,13 +3,15 @@
     
 }
 
-.auth-form{
+/* .auth-form{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-height:fit-content;
     height: 100vh;
-}
+    margin: 50px;
+} */
 
 .form-msg{
     background-color: #e8f7f0;

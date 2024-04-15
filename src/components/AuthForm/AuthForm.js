@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import LoginForm from "./Login/LoginForm";
 import SignUp from "./SignUp/SignUp";
 import { useHistory } from "react-router";
@@ -11,16 +11,16 @@ function AuthForm() {
 
   const history = useHistory();
   return (
-    <section className="auth-form ">
-      {history.location.pathname == "/login" && <LoginForm />}
-      {history.location.pathname == "/signup" && <SignUp />}
+    <section className="auth-form p-5  ">
+      {history.location.pathname === "/login" && <LoginForm />}
+      {history.location.pathname === "/signup" && <SignUp />}
       <div className="form-msg ">
-        {history.location.pathname == "/login" && (
+        {history.location.pathname === "/login" && (
           <p>
             Don't have an account? <Link to="/signup">Sign up</Link>
           </p>
         )}
-        {history.location.pathname == "/signup" && (
+        {history.location.pathname === "/signup" && (
           <p>
             Have an account? <Link to="/login">Login</Link>
           </p>

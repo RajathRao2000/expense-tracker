@@ -3,7 +3,7 @@ import ExpenseTracker from "./ExpenseTracker";
 import { Provider } from "react-redux";
 import { store } from "../../store/store";
 import { MemoryRouter } from "react-router-dom/cjs/react-router-dom";
-
+import axios from "axios";
 
 describe("testing expense tracker component", () => {
   test("Login Title", () => {

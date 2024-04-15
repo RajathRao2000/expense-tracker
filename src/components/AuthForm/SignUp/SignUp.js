@@ -5,8 +5,6 @@ import { useHistory, useLocation } from "react-router";
 import keys from "../../../keys";
 import "./SignUp.css";
 
-import Button from "react-bootstrap/Button";
-import { Form } from "react-bootstrap";
 
 function SignUp() {
   const enteredEmail = useRef();
@@ -44,7 +42,7 @@ function SignUp() {
   };
   const checkPassword = () => {
     // console.log("onchange")
-    if (enteredConfirmPassword.current.value != enteredPassword.current.value) {
+    if (enteredConfirmPassword.current.value !== enteredPassword.current.value) {
       console.log("not same");
     }
   };
@@ -53,48 +51,11 @@ function SignUp() {
     <>
     <form onSubmit={SignUpHandler} className="form sign-up-form ">
     <h1>Sign up</h1>
-    <input placeholder="Email" id="email" ref={enteredEmail}/>
-    <input placeholder="Password" id="password" type="password" ref={enteredPassword}/>
-    <input placeholder="Confirm Password" id="cPassword" type="password" ref={enteredConfirmPassword}/>
+    <input placeholder="Email" name="email" ref={enteredEmail}/>
+    <input placeholder="Password" name="password" type="password" ref={enteredPassword}/>
+    <input placeholder="Confirm Password" name="cPassword" type="password" onChange={checkPassword} ref={enteredConfirmPassword}/>
     <button className="form-btn signup-btn" type="submit">Sign up</button>
     </form>
-    {/* <Form
-      className="sign-up-form container border border-1 p-5"
-      onSubmit={SignUpHandler}
-    >
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control
-          type="email"
-          placeholder="Enter email"
-          ref={enteredEmail}
-          required
-        />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control
-          onChange={checkPassword}
-          type="password"
-          placeholder="Password"
-          ref={enteredPassword}
-          required
-        />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control
-          onChange={checkPassword}
-          type="password"
-          placeholder="Password"
-          ref={enteredConfirmPassword}
-          required
-        />
-      </Form.Group>
-      <button className="form-btn signup-btn" type="submit">
-        Submit
-      </button>
-    </Form> */}
     </>
   );
 }

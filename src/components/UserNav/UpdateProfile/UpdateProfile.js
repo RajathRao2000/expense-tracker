@@ -6,17 +6,20 @@ import {useSelector} from "react-redux"
 import keys from "../../../keys";
 import Global from "../../store/Global";
 import "./UpdateProfile.css";
-import { useLocation } from "react-router";
+import { useHistory } from "react-router";
 
 function UpdateProfile() {
+  const history=useHistory()
   const enteredName = useRef();
   const enteredUrl = useRef();
   const { idtoken } = useContext(Global);
   const auth=useSelector(state=>state.auth)
+  const dark=useSelector(state=>state.theme.dark)
   const [userInfo,setUserInfo]=useState({
     email:"",
     url:""
   })
+
   console.log(idtoken);
 
   const getProfileInfo = async () => {
@@ -65,10 +68,10 @@ function UpdateProfile() {
     }
   };
   return (
-    <form className="contact-details" onSubmit={updateHandler}>
+    <form className={`contact-details rounded ${dark?"bg-black text-white":"border-2 border-black"}`} onSubmit={updateHandler}>
       <div className="form-header">
         <h2>Contact Details</h2>
-        <button>Cancel</button>
+        <button onClick={()=>history.replace("/profile")}>Cancel</button>
       </div>
       <div className="update-input-group">
         <label>
@@ -85,7 +88,7 @@ function UpdateProfile() {
           </svg>
           Full Name:{" "}
         </label>
-        <input id="fullname" defaultValue={userInfo.name} ref={enteredName} />
+        <input className="text-black" id="fullname" defaultValue={userInfo.name} ref={enteredName} />
         <label>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -100,7 +103,7 @@ function UpdateProfile() {
           </svg>
           Profile Photo URL
         </label>
-        <input id="photoUrl" defaultValue={userInfo.url} ref={enteredUrl} />
+        <input className="text-black" id="photoUrl" defaultValue={userInfo.url} ref={enteredUrl} />
       </div>
       <button type="submit">Update</button>
     </form>

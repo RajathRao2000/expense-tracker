@@ -1,11 +1,4 @@
-.expense-tracker{
-    padding: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 20px;
-}
+
 
 .expense-tracker>form{
     max-width: 850px;

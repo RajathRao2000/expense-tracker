@@ -14,10 +14,10 @@ function VerifyEmail() {
         requestType: "VERIFY_EMAIL",
         idToken: auth.idtoken,
       });
-      console.log("verification sent!", res.data);
+      // console.log("verification sent!", res.data);
       alert("Verification Sent! Please check your E-mail")
     } catch (error) {
-      console.log("error in email verification", error.response.data.error);
+      // console.log("error in email verification", error.response.data.error);
       alert(error.response.data.error.message);
     }
   };

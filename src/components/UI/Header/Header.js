@@ -25,8 +25,8 @@ function Header() {
     <>
       <header
         className={`${
-          dark ? "dark" : "bg-blue-50"
-        } border-solid border-2 border-b-black p-2 flex justify-between h-16 items-center`}
+          dark ? "dark" : ""
+        }  p-2 flex justify-between h-16 items-center`}
       >
         <p className="text-xl">
           {pathname === `/profile`
@@ -57,8 +57,8 @@ function Header() {
         >
           {(pathname !== "/login" && pathname!=="/signup") && (
             <div
-              className={`profile-msg p-2  italic text-xs w-72 rounded ${
-                dark ? "bg-white text-black" : "bg-black text-white"
+              className={`profile-msg p-2  italic text-xs border-l-2 w-72 rounded ${
+                dark ? "bg-white text-black border-gray-100" : " border-black"
               } flex`}
             >
               {pathname !== `/update-profile` ? (

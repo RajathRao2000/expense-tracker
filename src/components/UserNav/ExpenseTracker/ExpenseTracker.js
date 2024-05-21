@@ -26,7 +26,7 @@ function ExpenseTracker() {
     email = JSON.parse(localStorage.getItem("token")).email;
     email = email.replace(/[.@]/g, "");
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     alert("login details not found. Please login to add expense...");
     history.replace("/login");
   }
@@ -52,12 +52,8 @@ function ExpenseTracker() {
       description,
       category,
     };
-    console.log(temp);
     if (isEditMode) {
       try {
-        console.log(
-          `${keys.firebaseUrl}/expenses-list/${email}/${isEditMode}.json`
-        );
         const res = await axios.patch(
           `${keys.firebaseUrl}/expenses-list/${email}/${isEditMode}.json`,
           {
@@ -66,10 +62,10 @@ function ExpenseTracker() {
             category,
           }
         );
-        console.log("successful edit", res, res.data);
+        // console.log("successful edit", res, res.data);
         getExpense();
       } catch (error) {
-        console.log("error in edit", error);
+        // console.log("error in edit", error);
       }
       setIsEditMode(false);
       return;
@@ -79,9 +75,9 @@ function ExpenseTracker() {
         `${keys.firebaseUrl}/expenses-list/${email}.json`,
         temp
       );
-      console.log("Added successfully", res.data);
+      // console.log("Added successfully", res.data);
     } catch (error) {
-      console.log("error in adding", error);
+      // console.log("error in adding", error);
     }
     dispatch(expenseActions.addExpense(temp));
     // setExpnesesList((prev) => [...prev, temp]);
@@ -92,7 +88,7 @@ function ExpenseTracker() {
       const res = await axios.get(
         `${keys.firebaseUrl}/expenses-list/${email}.json`
       );
-      console.log("successfully received expenses list", res.data);
+      // console.log("successfully received expenses list", res.data);
 
       dispatch(
         expenseActions.setExpenses(
@@ -102,7 +98,7 @@ function ExpenseTracker() {
         )
       );
     } catch (error) {
-      console.log("error in fetching expense list or expense list is empty");
+      // console.log("error in fetching expense list or expense list is empty");
     }
   };
   useEffect(() => {
@@ -110,7 +106,6 @@ function ExpenseTracker() {
   }, []);
 
   const updateInput = (e, type) => {
-    console.log(e.target.value, type);
     switch (type) {
       case "expense":
         setExpense(e.target.value);
@@ -125,7 +120,6 @@ function ExpenseTracker() {
   };
 
   const handleEdit = (e, edit) => {
-    console.log("edit", edit);
     setIsEditMode(true);
     setExpense(edit.expense);
     setCategory(edit.category);
@@ -138,10 +132,10 @@ function ExpenseTracker() {
       const res = await axios.delete(
         `${keys.firebaseUrl}/expenses-list/${email}/${expenseid}.json`
       );
-      console.log("successfully deleted", res, res.data);
+      // console.log("successfully deleted", res, res.data);
       dispatch(expenseActions.deleteExpense(expenseid));
     } catch (error) {
-      console.log("error in deletion", error);
+      // console.log("error in deletion", error);
     }
   };
 
@@ -155,7 +149,7 @@ function ExpenseTracker() {
     >
       <form
         className={`form rounded-lg expense-form ${
-          dark ? "bg-black text-white" : "bg-blue-50"
+          dark ? "bg-black text-white" : ""
         } w-96`}
         onSubmit={AddExpense}
       >
@@ -193,7 +187,7 @@ function ExpenseTracker() {
       </form>
       <section
         className={`expenses-table flex flex-col ${
-          dark ? "bg-black text-white" : "bg-blue-50"
+          dark ? "bg-black text-white" : ""
         } flex flex-col justify-center items-center gap-2 rounded-lg`}
       >
         <h2 className="text-4xl">Expenses List</h2>
@@ -223,7 +217,6 @@ function ExpenseTracker() {
             <tbody>
               {expensesList &&
                 expensesList.map((expense, i) => {
-                  console.log(expense.expenseid);
                   return (
                     <tr
                       className="[&>*]:p-3 [&>*]:border-2"

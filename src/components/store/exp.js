@@ -16,7 +16,6 @@ const expenseSlice = createSlice({
     },
     deleteExpense(state, action) {
       state.list=state.list.filter((expense) => {
-        console.log(expense,expense.expenseid,action.payload)
         return expense.expenseid !== action.payload;
       });
     },

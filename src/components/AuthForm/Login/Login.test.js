@@ -19,7 +19,6 @@ describe("testing Header component", () => {
 
     //Act
     const buttonElement = screen.getAllByRole("button");
-    console.log(buttonElement);
     userEvent.click(buttonElement);
 
     //Assert

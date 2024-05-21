@@ -20,7 +20,6 @@ function UpdateProfile() {
     url:""
   })
 
-  console.log(idtoken);
 
   const getProfileInfo = async () => {
     try {
@@ -30,7 +29,7 @@ function UpdateProfile() {
           idToken: auth.idtoken,
         }
       );
-      console.log("success post", res.data.users[0]);
+      // console.log("success post", res.data.users[0]);
         setUserInfo(prev=>({
             email: res.data.users[0].email,
             url: res.data.users[0].photoUrl,
@@ -38,7 +37,7 @@ function UpdateProfile() {
         }))
 
     } catch (error) {
-      console.log("user profile info get error", error);
+      // console.log("user profile info get error", error);
     }
   };
 
@@ -62,11 +61,11 @@ function UpdateProfile() {
           returnSecureToken: true,
         }
       );
-      console.log("profile update success", res.data);
+      // console.log("profile update success", res.data);
       alert("Update Successful!!")
 
     } catch (error) {
-      console.log("error in updateion", error.response.data);
+      // console.log("error in updateion", error.response.data);
     }
   };
   return (

@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import "./AuthForm.css";
 
 function AuthForm() {
-  console.log(JSON.parse(localStorage.getItem("token")));
 
   const history = useHistory();
   return (

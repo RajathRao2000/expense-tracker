@@ -34,23 +34,23 @@ function SignUp() {
         ...obj,
         returnSecureToken: true,
       });
-      console.log("user has successfully signed up", res.data);
+      // console.log("user has successfully signed up", res.data);
       history.replace("/login")
     } catch (error) {
-      console.log(error.response.data.error);
+      // console.log(error.response.data.error);
       alert(error.response.data.error.message)
     }
   };
   const checkPassword = () => {
     // console.log("onchange")
     if (enteredConfirmPassword.current.value !== enteredPassword.current.value) {
-      console.log("not same");
+      // console.log("not same");
     }
   };
 
   return (
     <>
-    <form onSubmit={SignUpHandler} className={"form sign-up-form "+`${dark ? "bg-black text-white" : "bg-blue-50"}`}>
+    <form onSubmit={SignUpHandler} className={"form sign-up-form "+`${dark ? "bg-black text-white" : ""}`}>
     <h1 className="text-4xl">Sign up</h1>
     <input className={`text-black`} placeholder="Email" name="email" ref={enteredEmail}/>
     <input className={`text-black`} placeholder="Password" name="password" type="password" ref={enteredPassword}/>

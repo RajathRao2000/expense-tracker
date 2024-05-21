@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Global from "./Global";
 
 function GlobalProvider(props) {
-  console.log(localStorage.getItem("token"));
   const [global, setGlobal] = useState({
     idtoken: localStorage.getItem("token")?JSON.parse(localStorage.getItem("token")).token:"",
     setidtoken: setidtokenn,
@@ -19,11 +18,9 @@ function GlobalProvider(props) {
   }
 
   function setidtokenn(token) {
-    console.log("setidtoken",token)
     setGlobal((prev) => {
       const tempGlobal = { ...prev };
       tempGlobal.idtoken = token;
-      console.log("tempglobal",tempGlobal)
       return tempGlobal;
     });
   }

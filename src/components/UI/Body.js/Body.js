@@ -6,8 +6,7 @@ function Body(props) {
 
   return (
     <section
-      className={`main-body flex justify-center items-center h-auto min-h-[calc(100vh-4rem)] overflow-auto border-2 ${dark?"bg-gray-400":""}`}
-      // className={`main-body flex justify-center items-center  min-w-max  h-[calc(100vh-4rem)] overflow-auto border-2`}
+      className={`main-body flex justify-center items-center h-auto min-h-[calc(100vh-4rem)] overflow-auto ${dark?"bg-gray-400":""}`}
     >
       {props.children}
     </section>

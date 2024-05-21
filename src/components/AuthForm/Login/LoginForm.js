@@ -2,7 +2,6 @@ import { authActions } from "../../store/auth";
 import { useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-// console.log(authActions)
 
 import keys from "../../../keys";
 import { useHistory } from "react-router";
@@ -30,10 +29,9 @@ function LoginForm() {
           email,
         }
       );
-      console.log("successfully sent password reset email", res.data);
       alert(`Password reset E-mail sent to ${email}!`)
     } catch (error) {
-      console.log("error in forgot password", error);
+      // console.log("error in forgot password", error);
     }
     setIsLoading(false);
   };
@@ -48,13 +46,12 @@ function LoginForm() {
       email,
       password,
     };
-    console.log(obj);
     try {
       const res = await axios.post(`${keys.SignInUrl}${keys.googleApiKey}`, {
         ...obj,
         returnSecureToken: true,
       });
-      console.log("Sign in success", res.data);
+      // console.log("Sign in success", res.data);
       localStorage.setItem(
         "token",
         JSON.stringify({
@@ -68,7 +65,7 @@ function LoginForm() {
 
       history.replace("/profile");
     } catch (error) {
-      console.log("signin error", error.response.data);
+      // console.log("signin error", error.response.data);
       alert(error.response.data.error.message);
     }
   };
@@ -78,7 +75,7 @@ function LoginForm() {
     <>
       {isLogin ? (
         <form
-          className={`form login-form ${dark ? "bg-black text-white" : " bg-blue-50"}`}
+          className={`form login-form ${dark ? "bg-black text-white" : " "}`}
           onSubmit={loginHandler}
         >
           <h1 className="text-4xl">Login</h1>
@@ -105,7 +102,7 @@ function LoginForm() {
         </form>
       ) : (
         <form
-          className={`form forgot-ps ${dark ? "bg-black text-white" : "bg-blue-50"}`}
+          className={`form forgot-ps ${dark ? "bg-black text-white" : ""}`}
           onSubmit={forgotPsHandler}
         >
           <h2 className="text-4xl" style={{ padding: "10px 0" }}>Account Recovery</h2>
